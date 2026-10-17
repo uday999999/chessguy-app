@@ -78,7 +78,6 @@ export const App: React.FC = () => {
   const [isSoundStudioOpen, setIsSoundStudioOpen] = useState<boolean>(false);
   const [isGameReviewOpen, setIsGameReviewOpen] = useState<boolean>(false);
   const [liveCoachMove, setLiveCoachMove] = useState<AnalyzedMove | null>(null);
-  const [isMobileView, setIsMobileView] = useState<boolean>(false);
   const [isResignConfirming, setIsResignConfirming] = useState<boolean>(false);
   const [showSplash, setShowSplash] = useState<boolean>(true);
 
@@ -1141,9 +1140,7 @@ export const App: React.FC = () => {
   const mainGameContent = (
     <main
       className={`w-full mx-auto flex flex-col items-center justify-start pb-24 lg:pb-6 ${
-        isMobileView
-          ? 'max-w-[420px] p-2 gap-2'
-          : isDedicatedMode
+        isDedicatedMode
           ? 'max-w-4xl p-2 sm:p-4'
           : 'max-w-[1600px] p-2 sm:p-4 lg:p-6 lg:flex-row lg:items-start lg:justify-center gap-3 lg:gap-6'
       }`}
@@ -1203,11 +1200,9 @@ export const App: React.FC = () => {
           {/* Board with Evaluation Bar */}
           <div className="flex gap-2 sm:gap-3 items-center justify-center w-full shrink-0">
             {/* Live Evaluation Bar - shown on tablet and desktop */}
-            {!isMobileView && (
-              <div className="hidden sm:flex self-stretch shrink-0">
-                <EvaluationBar score={evalScore} flipped={boardFlipped} />
-              </div>
-            )}
+            <div className="hidden sm:flex self-stretch shrink-0">
+              <EvaluationBar score={evalScore} flipped={boardFlipped} />
+            </div>
 
             {/* Chess Board */}
             <div className="w-full relative shrink-0 block">
@@ -1406,7 +1401,7 @@ export const App: React.FC = () => {
           )}
 
           {/* Mobile / Narrow View Game Center: Moves, Coach, Settings Tabs */}
-          <div className={`${isMobileView ? 'w-full' : 'w-full lg:hidden'} mt-2.5`}>
+          <div className="w-full lg:hidden mt-2.5">
             {gameMode === 'puzzles' ? (
               <PuzzleControls
                 currentPuzzle={currentPuzzle}
@@ -1502,8 +1497,7 @@ export const App: React.FC = () => {
         </div>
 
         {/* Right Column (Desktop): Game Center Hub / Puzzle Controls */}
-        {!isMobileView && (
-          <div className="hidden lg:flex w-full lg:w-[420px] flex-col gap-4 shrink-0">
+        <div className="hidden lg:flex w-full lg:w-[420px] flex-col gap-4 shrink-0">
             {gameMode === 'puzzles' ? (
               <PuzzleControls
                 currentPuzzle={currentPuzzle}
@@ -1596,7 +1590,6 @@ export const App: React.FC = () => {
               />
             )}
           </div>
-        )}
         </>
       )}
     </main>
@@ -1610,15 +1603,13 @@ export const App: React.FC = () => {
         isMuted={isMuted}
         onToggleMute={handleToggleMute}
         onOpenSoundStudio={() => setIsSoundStudioOpen(true)}
-        isMobileView={isMobileView}
-        onToggleMobileView={() => setIsMobileView((prev) => !prev)}
         onReplayIntro={() => setShowSplash(true)}
       />
 
       {mainGameContent}
 
-      {/* Docked Mobile Bottom Navigation Bar (Shown on phones and in mobile view) */}
-      <div className={isMobileView ? 'block' : 'lg:hidden'}>
+      {/* Docked Mobile Bottom Navigation Bar (Shown on phones & small screens only) */}
+      <div className="lg:hidden">
         <MobileBottomNav
           gameMode={gameMode}
           onModeChange={handleModeChange}

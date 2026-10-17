@@ -22,8 +22,6 @@ interface HeaderProps {
   onOpenSoundStudio: () => void;
   gameMode: GameMode;
   onModeChange: (mode: GameMode) => void;
-  isMobileView?: boolean;
-  onToggleMobileView?: () => void;
   onReplayIntro?: () => void;
 }
 
@@ -33,8 +31,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSoundStudio,
   gameMode,
   onModeChange,
-  isMobileView = false,
-  onToggleMobileView,
   onReplayIntro,
 }) => {
   const [showShortcuts, setShowShortcuts] = React.useState<boolean>(false);
@@ -65,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Right Tools: Mobile View Toggle, Sound Studio, Intro, Shortcuts, Mute */}
+        {/* Right Tools: Sound Studio, Intro, Shortcuts, Mute */}
         <div className="flex items-center gap-1.5 shrink-0">
           {onReplayIntro && (
             <button
@@ -75,32 +71,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span className="hidden xl:inline text-slate-300">Intro</span>
-            </button>
-          )}
-
-          {onToggleMobileView && (
-            <button
-              onClick={onToggleMobileView}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer ${
-                isMobileView
-                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400 ring-2 ring-cyan-400/30 font-extrabold'
-                  : 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-cyan-500/50 hover:bg-slate-800'
-              }`}
-              title={isMobileView ? 'Switch to Full Desktop View' : 'Preview Mobile View on Desktop'}
-            >
-              {isMobileView ? (
-                <>
-                  <Monitor className="w-3.5 h-3.5 text-cyan-400" />
-                  <span className="hidden sm:inline">Desktop View</span>
-                  <span className="sm:hidden text-[10px]">Desktop</span>
-                </>
-              ) : (
-                <>
-                  <Smartphone className="w-3.5 h-3.5 text-cyan-400" />
-                  <span className="hidden sm:inline">Mobile View</span>
-                  <span className="sm:hidden text-[10px]">Mobile</span>
-                </>
-              )}
             </button>
           )}
 
