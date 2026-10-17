@@ -1,0 +1,18 @@
+{
+  "name": "ChessGuy - Play vs AI & Coach Viktor",
+  "short_name": "ChessGuy",
+  "description": "Play chess against adaptive AI bots, train with Coach Viktor, solve puzzles, and learn chess tricks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

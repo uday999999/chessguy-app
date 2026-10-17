@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Chess Master AI</string>
+    <string name="title_activity_main">Chess Master AI</string>
+    <string name="package_name">com.chessmaster.app</string>
+    <string name="custom_url_scheme">com.chessmaster.app</string>
+</resources>
